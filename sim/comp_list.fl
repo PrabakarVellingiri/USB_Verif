@@ -1,0 +1,37 @@
+//******************************************************************************
+//      File Name     : comp_list.fl
+//      Description   : File contains the list of Directories which is been
+//                      included during the compilation.
+//******************************************************************************
+//      Author        : DEEPAK
+//      Created on    :
+//      File Id       :
+//******************************************************************************
+
+//----------------------------------------
+// UVM Include Directories
+//----------------------------------------
+//+incdir+../bin/uvm_src/src
+//------------------------------------
+//setenv PROJECT_ROOT /Projects/DV_Trainees_Batch2023/deepak.annadurai/AHB_APB_BRIDGE
+//----------------------------------------
+// RTL Directories
+//----------------------------------------
++incdir+$PROJECT_ROOT/DUT/
+//----------------------------------------
+// TB Directories
+//----------------------------------------
+
++incdir+$PROJECT_ROOT/tb/
++incdir+$PROJECT_ROOT/tb/ahb_master/
++incdir+$PROJECT_ROOT/tb/ahb_slave/
+
+
+// RTL and TB Files
+$PROJECT_ROOT/DUT/ahb_apb.v
+//$PROJECT_ROOT/tb/test.sv
+$PROJECT_ROOT/tb/ahb_intf.sv
+$PROJECT_ROOT/tb/apb_intf.sv
+$PROJECT_ROOT/tb/ahb_apb_package.sv
+$PROJECT_ROOT/tb/testbench.sv
+
