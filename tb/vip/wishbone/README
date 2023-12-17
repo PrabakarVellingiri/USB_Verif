@@ -1,1 +1,4 @@
 single master and single slave with point to pint connections
+sequences
+1. single write
+2. single read
