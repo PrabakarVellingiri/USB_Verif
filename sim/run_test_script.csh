@@ -20,7 +20,7 @@
 
 
 setenv UVM_HOME /tools/questa10_6c/questasim/verilog_src/questa_uvm_pkg-1.2/src
-setenv PROJECT_ROOT /Projects/DV_Trainees_Batch2023/deepak.annadurai/AHB_APB_BRIDGE
+setenv PROJECT_ROOT "{$PWD}"
 
 
 set func_cov = 0

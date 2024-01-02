@@ -1,37 +1,52 @@
-//******************************************************************************
-//      File Name     : comp_list.fl
-//      Description   : File contains the list of Directories which is been
-//                      included during the compilation.
-//******************************************************************************
-//      Author        : DEEPAK
-//      Created on    :
-//      File Id       :
-//******************************************************************************
-
-//----------------------------------------
-// UVM Include Directories
-//----------------------------------------
-//+incdir+../bin/uvm_src/src
-//------------------------------------
-//setenv PROJECT_ROOT /Projects/DV_Trainees_Batch2023/deepak.annadurai/AHB_APB_BRIDGE
 //----------------------------------------
 // RTL Directories
 //----------------------------------------
-+incdir+$PROJECT_ROOT/DUT/
+
++incdir+$PROJECT_ROOT/rtl/
+
 //----------------------------------------
 // TB Directories
 //----------------------------------------
 
 +incdir+$PROJECT_ROOT/tb/
-+incdir+$PROJECT_ROOT/tb/ahb_master/
-+incdir+$PROJECT_ROOT/tb/ahb_slave/
 
+// ........RTL  Files..........
 
-// RTL and TB Files
-$PROJECT_ROOT/DUT/ahb_apb.v
-//$PROJECT_ROOT/tb/test.sv
-$PROJECT_ROOT/tb/ahb_intf.sv
-$PROJECT_ROOT/tb/apb_intf.sv
-$PROJECT_ROOT/tb/ahb_apb_package.sv
-$PROJECT_ROOT/tb/testbench.sv
+$PROJECT_ROOT/rtl/usbf_crc16.v
+$PROJECT_ROOT/rtl/usbf_crc5.v
+$PROJECT_ROOT/rtl/usbf_defines.v
+$PROJECT_ROOT/rtl/usbf_ep_rf_dummy.v
+$PROJECT_ROOT/rtl/usbf_ep_rf.v
+$PROJECT_ROOT/rtl/usbf_idma.v
+$PROJECT_ROOT/rtl/usbf_mem_arb.v
+$PROJECT_ROOT/rtl/usbf_pa.v
+$PROJECT_ROOT/rtl/usbf_pd.v
+$PROJECT_ROOT/rtl/usbf_pe.v
+$PROJECT_ROOT/rtl/usbf_pl.v
+$PROJECT_ROOT/rtl/usbf_rf.v
+$PROJECT_ROOT/rtl/usbf_utmi_ls.v
+$PROJECT_ROOT/rtl/usbf_wb.v
+$PROJECT_ROOT/rtl/usbf_utmi_if.v
+$PROJECT_ROOT/rtl/usbf_top.v
+$PROJECT_ROOT/rtl/utmi_rtl/design.v
+$PROJECT_ROOT/rtl/utmi_rtl/rx_fsm.v
+$PROJECT_ROOT/rtl/utmi_rtl/rx_module.v
+$PROJECT_ROOT/rtl/utmi_rtl/tx_fsm.v
+$PROJECT_ROOT/rtl/utmi_rtl/tx_module.v
+
+//.................................
+
+// .........tb files........
+
+$PROJECT_ROOT/tb/environment.sv
+$PROJECT_ROOT/tb/uvm_scoreboard.sv
+$PROJECT_ROOT/tb/usb_core_environment.sv
+$PROJECT_ROOT/tb/usb_core_virtual_sequencer.sv
+$PROJECT_ROOT/tb/usb_core_top.sv
+$PROJECT_ROOT/tb/top.sv
+$PROJECT_ROOT/tb/ssram_interface.sv
+$PROJECT_ROOT/tb/vip/USB_VIP/usb_pkg.sv
+$PROJECT_ROOT/tb/vip/wishbone/wb_package.sv
+
+//.................................
 
