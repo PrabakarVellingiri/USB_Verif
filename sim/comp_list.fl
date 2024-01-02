@@ -3,12 +3,18 @@
 //----------------------------------------
 
 +incdir+$PROJECT_ROOT/rtl/
++incdir+$PROJECT_ROOT/rtl/utmi_rtl/
 
 //----------------------------------------
 // TB Directories
 //----------------------------------------
 
 +incdir+$PROJECT_ROOT/tb/
++incdir+$PROJECT_ROOT/tb/testfiles/
++incdir+$PROJECT_ROOT/tb/vip/
++incdir+$PROJECT_ROOT/tb/vip/wishbone/
++incdir+$PROJECT_ROOT/tb/vip/USB_VIP
+
 
 // ........RTL  Files..........
 
@@ -28,6 +34,7 @@ $PROJECT_ROOT/rtl/usbf_utmi_ls.v
 $PROJECT_ROOT/rtl/usbf_wb.v
 $PROJECT_ROOT/rtl/usbf_utmi_if.v
 $PROJECT_ROOT/rtl/usbf_top.v
+$PROJECT_ROOT/rtl/ssram.v/
 $PROJECT_ROOT/rtl/utmi_rtl/design.v
 $PROJECT_ROOT/rtl/utmi_rtl/rx_fsm.v
 $PROJECT_ROOT/rtl/utmi_rtl/rx_module.v
@@ -38,13 +45,13 @@ $PROJECT_ROOT/rtl/utmi_rtl/tx_module.v
 
 // .........tb files........
 
-$PROJECT_ROOT/tb/environment.sv
-$PROJECT_ROOT/tb/uvm_scoreboard.sv
 $PROJECT_ROOT/tb/usb_core_environment.sv
+$PROJECT_ROOT/tb/uvm_scoreboard.sv
 $PROJECT_ROOT/tb/usb_core_virtual_sequencer.sv
 $PROJECT_ROOT/tb/usb_core_top.sv
-$PROJECT_ROOT/tb/top.sv
 $PROJECT_ROOT/tb/ssram_interface.sv
+$PROJECT_ROOT/tb/usb_core_base_test.sv
+$PROJECT_ROOT/tb/usb_core_base_virtual_sequence.sv
 $PROJECT_ROOT/tb/vip/USB_VIP/usb_pkg.sv
 $PROJECT_ROOT/tb/vip/wishbone/wb_package.sv
 
