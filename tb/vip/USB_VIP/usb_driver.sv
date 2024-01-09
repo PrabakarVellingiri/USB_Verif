@@ -1,5 +1,5 @@
-`define ifn1 vif.driv_cb1	//Define interface path
-`define ifn2 vif.driv_cb2
+//`define ifn1 vif.driv_cb1	//Define interface path
+//`define ifn2 vif.driv_cb2
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 class usb_driver extends uvm_driver#(usb_packet);
@@ -31,7 +31,7 @@ class usb_driver extends uvm_driver#(usb_packet);
   endfunction
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!(uvm_config_db #(virtual utmi_interf )::get(this,"","vif",vif)))
+    if(!(uvm_config_db #(virtual utmi_interf )::get(this,"","u_vif",vif)))
       `uvm_error("driver",$sformatf("virtual interface error"))
   endfunction
 
@@ -49,14 +49,14 @@ endclass
       task usb_driver::run_phase(uvm_phase phase);
         forever begin
           #5;
-          if (`ifn1.RXActive) begin
-            if(`ifn1.RXValid & (!`ifn1.RXError)) begin		// No error & is valid,  sample data 
-              @(posedge `ifn1.clk_480mhz)
-              sie_data.push_back(`ifn1.DataOut);
+          if (vif.RXActive) begin
+            if(vif.RXValid & (!vif.RXError)) begin		// No error & is valid,  sample data 
+              @(posedge vif.clk_480mhz)
+              sie_data.push_back(vif.DataOut);
            end
           end
 
-          if(`ifn1.RXActive==0 && `ifn1.RXValid==0)begin
+          if(vif.RXActive==0 && vif.RXValid==0)begin
 	   sie(); 
 
           seq_item_port.get_next_item(req);
@@ -70,11 +70,11 @@ end
     
 //Drive task    
     task usb_driver:: drive(); 
-           `ifn2.TXValid<=1;
-      if(`ifn2.TXReady) begin				//drive
+           vif.TXValid<=1;
+      if(vif.TXReady) begin				//drive
              for(int i=0;i< $size(req.Packet);i++) begin
-               @(posedge `ifn2. clk_60mhz)
-                `ifn2.DataIn<=req.Packet[i];
+               @(posedge vif.clk_60mhz)
+                vif.DataIn<=req.Packet[i];
              end
            end
      endtask:drive
@@ -227,5 +227,4 @@ function bit[15:0] usb_driver:: crc16_check(bit[7:0] crc_q[$]); begin
     end
   end
 endfunction:crc16_check
-
 

@@ -18,7 +18,7 @@ class usb_monitor extends uvm_monitor;
         //pkt=usb_packet::type_id::create("pkt") ;
        // mon2scr=new(mon2scr,"this");
 
-        if(!(uvm_config_db#(virtual utmi_interf)::get(this,"","vif",vif)))
+      if(!(uvm_config_db#(virtual utmi_interf)::get(this,"","u_vif",vif)))
             `uvm_error("monitor","virtual interface error in build phase")
     endfunction
 

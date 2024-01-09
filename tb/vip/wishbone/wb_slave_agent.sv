@@ -27,5 +27,3 @@ class wb_slave_agent extends uvm_agent;
    endfunction
 
 endclass
-
-

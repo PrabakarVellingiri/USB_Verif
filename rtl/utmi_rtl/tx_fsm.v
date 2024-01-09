@@ -1,4 +1,4 @@
-`include "tx_module.sv"
+//`include "tx_module.v"
 module tx_fsm #(parameter w=8)(dpt,dmt,tx_data,tx_valid,enc_dount_valid_f,clk_480mhz,clk_60mhz,rst);
  //States present in TX_FSM
   parameter     reset_state  = 3'b000,

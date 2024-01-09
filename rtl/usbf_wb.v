@@ -1,7 +1,4 @@
-
-
 `include "usbf_defines.v"
-
 module usbf_wb(	// WISHBONE Interface
 		wb_clk, phy_clk, rst, wb_addr_i, wb_data_i, wb_data_o, 
 		wb_ack_o, wb_we_i, wb_stb_i, wb_cyc_i,
@@ -113,7 +110,7 @@ always @(state or wb_req_s1 or wb_addr_i or ma_ack or wb_we_i)
 	wb_ack_d = 1'b0;
 	rf_re = 1'b0;
 	rf_we_d = 1'b0;
-
+     //$display($time," ******** IN DESIGN VLAUES ******* wr_rd=%b, ADR_O=%h, DAT_O=%h DAT_I=%h",wb_we_i,wb_addr_i,wb_data_i,wb_data_o);
 	case(state)		// synopsys full_case parallel_case
 	   IDLE:
 	     begin

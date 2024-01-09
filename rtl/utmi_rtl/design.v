@@ -1,5 +1,5 @@
-`include "tx_fsm.sv"
-`include "rx_fsm.sv"
+/*`include "tx_fsm.v"
+`include "rx_fsm.v"*/
 module utmi #(parameter w=8)(data_p,data_m,tx_valid,data,clk_480mhz,clk_60mhz,rst);
 inout data_p,data_m;
 inout [(w-1):0]data;
@@ -25,6 +25,4 @@ tx_fsm tx(dpt,dmt,tx_data,tx_valid,enc_dout_valid,clk_480mhz,clk_60mhz,rst);
 rx_fsm rx(dpr,dmr,rx_valid,rx_data,clk_480mhz,clk_60mhz,rst);
 
 endmodule
-
-
 

@@ -13,7 +13,7 @@ class wb_master_monitor extends uvm_monitor;
   
   virtual function void build_phase(uvm_phase phase);
     super.build_phase (phase);
-    if(!(uvm_config_db#(virtual wb_interface)::get(this,"","vif",vif)))
+    if(!(uvm_config_db#(virtual wb_interface)::get(this,"","w_vif",vif)))
       begin
         `uvm_fatal("No vif",$sformatf("No vif in config db"))
       end

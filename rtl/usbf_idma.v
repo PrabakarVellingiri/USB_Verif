@@ -1,4 +1,3 @@
-
 `include "usbf_defines.v"
 
 module usbf_idma(	clk, rst,

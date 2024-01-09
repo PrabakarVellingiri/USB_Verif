@@ -1,5 +1,3 @@
-
-
 `include "usbf_defines.v"
 
 module usbf_mem_arb(	phy_clk, wclk, rst,

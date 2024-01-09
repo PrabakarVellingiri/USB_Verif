@@ -1,5 +1,3 @@
-
-
 `include "usbf_defines.v"
 
 module usbf_pe(	clk, rst,

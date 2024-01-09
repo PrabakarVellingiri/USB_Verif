@@ -1,4 +1,4 @@
-class usb_core_virtual_sequencer extends uvm_sequencer#(usb_sequence_item,wb_master_sequence_item);
+class usb_core_virtual_sequencer extends uvm_sequencer#(usb_packet,wb_master_sequence_item);
  
   `uvm_component_utils(usb_core_virtual_sequencer)
 

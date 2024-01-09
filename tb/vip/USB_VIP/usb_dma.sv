@@ -19,7 +19,7 @@ class dma extends uvm_component;
     bit [data_width-1:0] data_isoch;
   
     bit dma_done;
-    reg dma_busy;
+    bit dma_busy;
 
    reg [7:0]mem[255:0];                        //Memory
   
@@ -38,7 +38,18 @@ class dma extends uvm_component;
 
 task dma ();
 
-  assign this.dma_busy = (this.dma_grant==1)?1:(this.dma_done==1)?0:1;
+  //assign this.dma_busy = (this.dma_grant==1)?1:(this.dma_done==1)?0:1;
+  if(dma_grant == 1)
+    begin
+      dma_busy=1;
+    end
+  else if(dma_grant == 0)
+    begin
+      if(dma_done == 1)
+        dma_busy = 0;
+      else if(dma_done == 0)
+        dma_busy = 1;
+    end
 
      
 forever @(negedge reset)

@@ -1,6 +1,11 @@
-
-
+// Code your design here
 `include "usbf_defines.v"
+/*`include "usbf_utmi_if.v"
+`include "usbf_pl.v"
+`include "usbf_mem_arb.v"
+`include "usbf_rf.v"
+`include "usbf_wb.v"
+`include "ssram.v"*/
 
 module usbf_top(// WISHBONE Interface
 		clk_i, rst_i, wb_addr_i, wb_data_i, wb_data_o,
@@ -188,6 +193,7 @@ always @(posedge clk_i)
 // UTMI Interface
 usbf_utmi_if	u0(
 		.phy_clk(	phy_clk_pad_i	),
+  .wclk(clk_i),
 		.rst(		rst		),
 		.DataOut(	DataOut_pad_o	),
 		.TxValid(	TxValid_pad_o	),
@@ -376,7 +382,7 @@ usbf_wb	u5(	.phy_clk(	phy_clk_pad_i	),
 		.rf_din(	rf2wb_d		)
 		);
 
-
+  
 ///////////////////////////////////////////////////////////////////
 //
 // Initialization

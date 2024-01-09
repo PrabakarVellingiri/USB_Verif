@@ -1,4 +1,4 @@
-`include "rx_module.sv"
+//`include "rx_module.v"
 module rx_fsm #(parameter w=8) (dpr,dmr,rx_valid,rx_data,clk_480mhz,clk_60mhz,rst);
   //States present in RX_FSM
   parameter rx_reset_state          =  3'b000,

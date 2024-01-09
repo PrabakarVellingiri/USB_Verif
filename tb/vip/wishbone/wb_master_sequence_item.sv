@@ -1,5 +1,5 @@
 class wb_master_sequence_item extends uvm_sequence_item;
-  rand bit [14:0] ADR_O;
+  rand bit [31:0] ADR_O;
   rand bit [31:0] DAT_O;
   rand bit        WE_O;
   rand bit [3:0]  SEL_O;
@@ -7,6 +7,9 @@ class wb_master_sequence_item extends uvm_sequence_item;
   rand bit        CYC_O;
        bit [31:0] DAT_I;
        bit        ACK_I;
+  
+  
+  //constraint addr_c{ADR_O >= 32'h0; ADR_O <= 32'h13C ;ADR_O%4 == 0;}
   
   `uvm_object_utils_begin(wb_master_sequence_item)//factory registration
   `uvm_field_int(ADR_O,UVM_DEFAULT)//Using feild macro
@@ -22,6 +25,5 @@ class wb_master_sequence_item extends uvm_sequence_item;
   function new(string name="wb_master_sequence_item");
     super.new(name);
   endfunction
-  
     
 endclass

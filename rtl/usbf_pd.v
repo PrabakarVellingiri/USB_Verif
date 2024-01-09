@@ -1,7 +1,6 @@
-
-
 `include "usbf_defines.v"
-
+/*`include "usbf_crc16.v"
+`include "usbf_crc5.v"*/
 module usbf_pd(	clk, rst,
 
 		// UTMI RX I/F

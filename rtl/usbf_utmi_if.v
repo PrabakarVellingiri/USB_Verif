@@ -1,7 +1,6 @@
 `include "usbf_defines.v"
- 
 module usbf_utmi_if( // UTMI Interface (EXTERNAL)
-		phy_clk, rst,
+		phy_clk, wclk, rst,
 		DataOut, TxValid, TxReady,
 		RxValid, RxActive, RxError, DataIn,
 		XcvSelect, TermSel, SuspendM, LineState,
@@ -17,8 +16,8 @@ module usbf_utmi_if( // UTMI Interface (EXTERNAL)
 		resume_req, suspend_clr
 		);
  
-input		phy_clk;
-input		wclk;
+input		phy_clk; //480mhz
+input		wclk; // 60mhz
 input		rst;
  
 output	[7:0]	DataOut;
@@ -55,6 +54,8 @@ output		suspend_clr;
  
  
 ///////////////////////////////////////////////////////////////////
+//utmi interface 
+//utmi_interf
 //wires for serial connection of utmi (utmi to utmi (serial o/p to serial i/p)
 wire dp;
 wire dm;
@@ -136,6 +137,7 @@ always @(posedge phy_clk)
 	else
 	TxValid <= tx_valid | drive_k | tx_valid_last | (TxValid & !(TxReady | drive_k_r));
  
+ 
 ///////////////////////////////////////////////////////////////////
 //
 // Line Status Signaling & Speed Negotiation Block
@@ -162,8 +164,8 @@ usbf_utmi_ls	u0(
 		);
  
 //module instantiation of utmi with two instances
-utmi u1(.clk_480mhz(phy_clk), .clk_60mhz(wclk), .rst(rst), .DataOut(data), .TxValid(tx_valid), .dp(data_p), .dm(data_m));
-utmi u2(.clk_480mhz(phy_clk), .clk_60mhz(wclk), .rst(rst), .DataIn(data), .TxValid(tx_valid), .dp(data_p), .dm(data_m));
+  //utmi u1(.clk_480mhz(phy_clk), .clk_60mhz(wclk), .rst(rst), .data(DataIn), .data(Data_Out), .tx_Valid(TxValid), .data_p(dp), .data_m(dm));
+
  
  
 endmodule

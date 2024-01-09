@@ -1,4 +1,3 @@
-
 `timescale 1ns / 10ps
 
 // Uncomment the lines below to get various levels of debugging
