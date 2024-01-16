@@ -47,10 +47,15 @@ class v_reg_write_read_sqnce extends usb_core_base_virtual_sequence;
   endfunction
   
   task body();
+    repeat(5)
     begin   
-      wb_wr_sqnce.start(p_sequencer.wb_sqncr);
-      #10
-      wb_rd_sqnce.start(p_sequencer.wb_sqncr);
+      /*wb_wr_sqnce.start(p_sequencer.wb_sqncr);
+      #50
+      wb_rd_sqnce.start(p_sequencer.wb_sqncr);*/
+      `uvm_do_on(wb_wr_sqnce,p_sequencer.wb_sqncr)
+      #40;
+      `uvm_do_on(wb_rd_sqnce,p_sequencer.wb_sqncr)
+      #20;
     end
   endtask
   

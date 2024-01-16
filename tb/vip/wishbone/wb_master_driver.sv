@@ -42,7 +42,7 @@ class wb_master_driver extends uvm_driver#(wb_master_sequence_item);
             vif.DAT_O = 0;           
           end
         
-        `uvm_info(get_type_name(),$sformatf("wr_rd=%b, ADR_O=%h, DAT_O=%h DAT_I=%h",vif.WE_O,vif.ADR_O,vif.DAT_O,vif.DAT_I),UVM_LOW);
+       // `uvm_info(get_type_name(),$sformatf("wr_rd=%b, ADR_O=%h, DAT_O=%h DAT_I=%h",vif.WE_O,vif.ADR_O,vif.DAT_O,vif.DAT_I),UVM_LOW);
       end 
   endtask
   

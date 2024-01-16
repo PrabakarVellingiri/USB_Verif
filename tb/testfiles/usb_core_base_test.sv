@@ -55,7 +55,7 @@ class usb_core_reg_wr_rd_test extends usb_core_base_test;
     begin
       phase.raise_objection(this);
       v_reg_wr_rd_sqnce.start(env.v_sqncr);
-      #200;
+      #20;
       phase.drop_objection(this);
     end
   endtask

@@ -129,7 +129,7 @@ always @(adr or csr or inti or buf0 or buf1)
 	   2'h3: dout = buf1;
       
 	endcase
-    $display("**************************************************IN DESIGN the REGISTER value = %h**************************************************",adr);
+    //$display("**************************************************IN DESIGN the REGISTER value = %h**************************************************",adr);
   end
 assign we0 = (adr==2'h0) & we;
 assign we1 = (adr==2'h1) & we;

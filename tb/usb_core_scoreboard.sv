@@ -1,58 +1,51 @@
-class usb_scoreboard extends uvm_scoreboard;
-  `uvm_component_utils(usb_scoreboard)
+class usb_core_scoreboard extends uvm_scoreboard;
+  `uvm_component_utils(usb_core_scoreboard)
   
-  uvm_tlm_analysis_fifo #(wb_master_sequence_item) fifo_wb_master;
+  uvm_analysis_imp #(wb_master_sequence_item,usb_core_scoreboard) scb_get_port;
   
-  wb_master_sequence_item mst_seq;
-
+  wb_master_sequence_item storage_qu[$];
  
-  bit [31:0] sc_mem1[33000 : 0];
+  bit [31:0] sc_mem[33000 : 0];
   
-  wb_master_sequence_item mst_que[$];
-  
-  int unsigned temp1 ;
-   
-  function new(string name = "usb_scoreboard", uvm_component parent);
+  function new(string name = "usb_core_scoreboard", uvm_component parent);
     super.new(name,parent);
-	fifo_wb_master =new("fifo_wb_master",this);
   endfunction
 
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    scb_get_port=new("scb_get_port",this);
   endfunction
 
+  virtual function write(wb_master_sequence_item trans);
+    storage_qu.push_back(trans);
+  endfunction
+  
   virtual task run_phase(uvm_phase phase);
-	forever
-          begin
-            fifo_wb_master.get(mst_seq);
-            mst_que.push_back(mst_seq);
-            checkr();
-          end
-     endtask
-
- 
-  task checkr();  
-    mst_seq = mst_que.pop_front();
-    
-    if(mst_seq.WE_O == 1)
-      begin
-        sc_mem1[mst_seq.ADR_O] = mst_seq.DAT_O;
-      end
-    else if(mst_seq.WE_O == 0)
-      begin
-        #10 
-        temp1 = mst_seq.DAT_I;
-        if(sc_mem1[mst_seq.ADR_O] == temp1)
-          begin
-            `uvm_info(get_type_name(),$sformatf("Expected value=%0d Actual value=%0d",sc_mem1[mst_seq.ADR_O],temp1),UVM_LOW)
-                  `uvm_info("TEST STATUS = PASS","******TEST PASSED******\n",UVM_LOW)
-          end
-        else
-          begin
-            `uvm_info(get_type_name(),$sformatf("Expected value=%0d Actual value=%0d",sc_mem1[mst_seq.ADR_O],temp1),UVM_LOW)
-             `uvm_error("TEST STATUS = FAIL","******TEST FAILED******\n")
-          end
-      end 
+    begin
+      forever
+        begin
+          wb_master_sequence_item temp;
+          wait(storage_qu.size()>0);
+          temp=storage_qu.pop_front();
+          if(temp.WE_O==1'b1)
+            begin
+              sc_mem[temp.ADR_O]=temp.DAT_O;
+            end
+          else if(temp.WE_O==1'b0)
+            begin
+              if(sc_mem[temp.ADR_O]==temp.DAT_I)
+                begin
+                  `uvm_info(get_type_name(),$sformatf("Address = %h Expected value = %h Actual value = %h",temp.ADR_O,sc_mem[temp.ADR_O],temp.DAT_I),UVM_LOW)
+                  `uvm_info(get_type_name(),"******TEST PASSED******\n",UVM_LOW)
+                end
+              else
+                begin
+                  `uvm_info(get_type_name(),$sformatf("Address = %h Expected value = %h Actual value = %h",temp.ADR_O,sc_mem[temp.ADR_O],temp.DAT_I),UVM_LOW)
+                  `uvm_error(get_type_name(),"******TEST FAILED******\n")
+                end
+            end
+        end
+    end
   endtask
-
+  
 endclass
