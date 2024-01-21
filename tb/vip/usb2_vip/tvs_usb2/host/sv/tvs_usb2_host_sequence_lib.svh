@@ -1,0 +1,289 @@
+//============================================================================
+//  CONFIDENTIAL and Copyright (C) 2010 Test and Verification Solutions Ltd
+//============================================================================
+//  Contents                  : File for tvs_usb2_host_sequence_lib.svh
+//
+//  Brief description         : uvm master sequence library file contains all
+//                              the sequence for testcase
+//
+//  Known exceptions to rules :
+//
+//============================================================================
+//  Author        :
+//  Created on    :
+//  File Id       : tvs_usb2_host_sequnce_lib.svh
+//============================================================================
+
+`ifndef TVS_USB2_HOST_SEQUENCE_LIB_SVH
+`define TVS_USB2_HOST_SEQUENCE_LIB_SVH
+
+class tvs_usb2_host_sequence_lib#(DATA_WIDTH=8) extends uvm_sequence#(tvs_usb2_host_sequence_item);
+
+  //Instance declaration for host sequence item
+  tvs_usb2_host_sequence_item#(DATA_WIDTH)  item;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_param_utils(tvs_usb2_host_sequence_lib)
+  `uvm_declare_p_sequencer(tvs_usb2_host_sequencer#(DATA_WIDTH))
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_usb2_host_sequence_lib");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+  endtask: body
+
+endclass: tvs_usb2_host_sequence_lib
+////////////////////////////////////////////////////////////////////////
+////////////////////////tvs usb2 host tx cmd sequence///////////////////
+////////////////////////////////////////////////////////////////////////
+class tvs_usb2_host_tx_cmd_sequence extends tvs_usb2_host_sequence_lib;
+  
+  //Instance declaration for tvs_ulpi_host_tx_cmd_sequence
+  tvs_ulpi_host_tx_cmd host_tx_cmd;
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_usb2_host_tx_cmd_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_usb2_host_host_tx_cmd_sequnce");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(host_tx_cmd) 
+  endtask: body
+
+endclass: tvs_usb2_host_tx_cmd_sequence
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////tvs usb2 host rx cmd sequnece///////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+class tvs_usb2_host_rx_cmd_sequence#(DATA_WIDTH) extends tvs_usb2_host_sequence_lib#(DATA_WIDTH) ;
+
+  //Instance declaration for tvs_ulpi_host_rx_cmd sequence item
+  tvs_ulpi_host_rx_cmd host_rx_cmd;
+  //Used to set Types of linestate
+  linestate_type_e linestate_type;
+  //Used to indicate which is rx_cmd
+  received_data_type_e data_type_e;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_param_utils(tvs_usb2_host_rx_cmd_sequence#(DATA_WIDTH))
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_usb2_host_rx_cmd_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_create(host_rx_cmd)
+    host_rx_cmd.linestate_type = linestate_type;
+    host_rx_cmd.data_type_e    = data_type_e;
+    host_rx_cmd.item2frm(host_rx_cmd);
+   `uvm_send(host_rx_cmd)
+    get_response(rsp);
+  endtask: body
+
+
+endclass: tvs_usb2_host_rx_cmd_sequence
+
+////////////////////////////////////////////////////////////////////////////////////
+/////////////////////tvs ulpi host function control register sequence///////////////
+////////////////////////////////////////////////////////////////////////////////////
+class tvs_ulpi_host_func_cntrl_reg_sequence extends tvs_usb2_host_sequence_lib ;
+  
+  //Instance of tvs_ulpi_host_func_cntrl_reg
+  tvs_ulpi_host_func_cntrl_reg func_cntrl_reg;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_ulpi_host_func_cntrl_reg_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_ulpi_host_func_cntrl_reg_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(func_cntrl_reg)
+  endtask: body
+
+endclass: tvs_ulpi_host_func_cntrl_reg_sequence
+
+//////////////////////////////////////////////////////////////////////////////////
+///////////////////////tvs_ulpi_host_otg_cntrl_reg_sequence///////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+class tvs_ulpi_host_otg_cntrl_reg_sequence extends tvs_usb2_host_sequence_lib ;
+  
+  //Instance of tvs_ulpi_host_otg_cntrl_reg
+  tvs_ulpi_host_otg_cntrl_reg otg_cntrl_reg;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_ulpi_host_otg_cntrl_reg_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_ulpi_host_otg_cntrl_reg_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(otg_cntrl_reg)
+  endtask: body
+
+endclass: tvs_ulpi_host_otg_cntrl_reg_sequence
+///////////////////////////////////////////////////////////////////////////////
+//////////////////tvs_ulpi_host_int_cntrl_register sequence ///////////////////
+///////////////////////////////////////////////////////////////////////////////
+class tvs_ulpi_host_int_cntrl_reg_sequence extends tvs_usb2_host_sequence_lib ;
+  
+  //Instance of tvs_ulpi_host_int_cntrl_reg
+  tvs_ulpi_host_int_cntrl_reg int_cntrl_reg;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_ulpi_host_int_cntrl_reg_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_ulpi_host_int_cntrl_reg_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(int_cntrl_reg)
+  endtask: body
+
+endclass: tvs_ulpi_host_int_cntrl_reg_sequence
+///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////tvs_usb_host_token_pkt sequence//////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+class tvs_usb_host_token_pkt_sequence extends tvs_usb2_host_sequence_lib ;
+  
+  //Instance of tvs_usb_host_token_pkt
+  tvs_usb_host_token_pkt tkn_pkt;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_usb_host_token_pkt_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_usb_host_token_pkt_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(tkn_pkt)
+  endtask: body
+
+endclass: tvs_usb_host_token_pkt_sequence
+///////////////////////////////////////////////////////////////////////////////////
+////////////////////tvs_ulpi_host_data_pkt_sequence////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+class tvs_ulpi_host_data_pkt_sequence extends tvs_usb2_host_sequence_lib ;
+  
+  //Instance of tvs_ulpi_host_data_pkt sequence item
+  tvs_usb_host_data_pkt data_pkt;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+  `uvm_object_utils(tvs_ulpi_host_data_pkt_sequence)
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : new
+  // Description         : This is a constructor for tvs_usb2_host_base_sequence class.
+  ////////////////////////////////////////////////////////////////////////////////
+  function new (string name="tvs_ulpi_host_data_pkt_sequence");
+    super.new(name);
+  endfunction : new
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // method's name       : body
+  // Description         : 
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual task body();
+   `uvm_do(data_pkt)
+  endtask: body
+
+endclass: tvs_ulpi_host_data_pkt_sequence
+
+`endif

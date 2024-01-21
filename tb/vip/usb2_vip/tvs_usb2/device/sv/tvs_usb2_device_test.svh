@@ -1,0 +1,68 @@
+`ifndef TVS_USB2_DEVICE_TEST_SVH
+`define TVS_USB2_DEVICE_TEST_SVH
+
+class tvs_usb2_device_test extends uvm_test;
+
+  //int DATA_WIDTH_SLV = 8;
+
+  tvs_usb2_device_agent#(8) slave_agent;
+  tvs_usb2_device_agent_config slave_cfg;
+
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////Registration of the Component  ///////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         :  Factory Registration
+  // description         :  Provide implementations of virtual methods such as
+  //                        get_type_name and create
+  ////////////////////////////////////////////////////////////////////////////////
+
+  `uvm_component_utils(tvs_usb2_device_test) 
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////Declaration of the Methods  ///////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
+  // method name         : new
+  // description         : Default new constructor
+  ////////////////////////////////////////////////////////////////////////////////
+  function new(string name = "tvs_usb2_device_test",uvm_component parent);
+  	super.new(name,parent);
+  endfunction
+  
+  ////////////////////////////////////////////////////////////////////////////////
+  // FUNCTION: build_phase()
+  // Factory build phase
+  // Get configuration settings for virtual interfaces
+  ////////////////////////////////////////////////////////////////////////////////
+  virtual function void build_phase(uvm_phase phase);
+   slave_cfg = tvs_usb2_device_agent_config::type_id::create("slave_cfg");
+   //if(!uvm_config_db #(virtual tvs_ulpi_intf)::get(this,"","tvs_ulpi_dev_if",slave_cfg.tvs_ulpi_dev_if))
+   //  begin
+   //    `uvm_fatal("VIF CONFIG","cannot get()interface vif from uvm_config_db. Have you set() it?")
+   //  end
+   slave_cfg.is_active = UVM_PASSIVE;
+   slave_cfg.has_driver = 0;
+   slave_cfg.has_checker = 0;
+   uvm_config_db #(tvs_usb2_device_agent_config)::set(this,"*","slave_cfg",slave_cfg);
+   super.build_phase(phase);
+   slave_agent = tvs_usb2_device_agent#(8)::type_id::create("slave_agent",this); 
+  endfunction
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Task name           : run_phase
+  // Description         : Use to start the transactor.
+  ////////////////////////////////////////////////////////////////////////////////
+  task run_phase(uvm_phase phase);
+    phase.raise_objection(this);
+    uvm_top.print_topology();
+    #50000000;
+    phase.drop_objection(this);
+
+  endtask : run_phase
+  ////////////////////////////////////////////////////////////////////////////////
+
+endclass
+
+`endif

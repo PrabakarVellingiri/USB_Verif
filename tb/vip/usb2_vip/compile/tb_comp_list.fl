@@ -1,0 +1,49 @@
+//****************************************************************************** 
+//      File Name     : tb_comp_list.fl
+//      Description   : File contains the list of Directories which is been
+//                      included during the compilation. 
+//****************************************************************************** 
+//      Author        :  Suresh Babu
+//      Created on    : 
+//      File Id       : 
+//****************************************************************************** 
+
+
+//----------------------------------------
+// TVS-AXI UVM VIP Include Directories
+//----------------------------------------
+//+incdir+../tvs_usb2/device
+//+incdir+../tvs_usb2/devive/examples
++incdir+../tvs_usb2/device/examples/test_lib
++incdir+../tvs_usb2/device/sv
++incdir+../tvs_usb2/host/sv
+
++incdir+../tvs_usb2_env
+
++incdir+../tvs_usb2_top/examples
++incdir+../tvs_usb2_top/examples/tb_top
++incdir+../tvs_usb2_top/examples/test_lib
++incdir+../tvs_usb2_top/rtl_tb
++incdir+../tvs_usb2_top/sv
+
++incdir+.
++incdir+../common
+//----------------------------------------
+
+
+//----------------------------------------
+// UVM package File 
+//----------------------------------------
+../tvs_usb2/device/sv/tvs_usb2_device_pkg.sv
+../tvs_usb2/host/sv/tvs_usb2_host_pkg.sv
+../tvs_usb2_top/examples/tb_top/tvs_usb2_top.sv
+//../tvs_usb2_env/tvs_axi_env_pkg.sv
+//../tvs_usb2_top/examples/test_lib/tvs_axi_test_pkg.sv
+
+//----------------------------------------
+// TVS-USB2 UVM VIP Files 
+//----------------------------------------
+//../tvs_usb2_top/examples/tb_top/tvs_usb2_device.sv
+//../tvs_usb2_top/examples/tb_top/tvs_usb2_tb_top.sv
+//----------------------------------------
+
