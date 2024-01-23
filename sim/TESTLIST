@@ -1,0 +1,3 @@
+usb_core_base_test
+usb_core_reg_reset_read_test
+usb_core_reg_wr_rd_test
