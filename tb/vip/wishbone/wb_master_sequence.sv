@@ -30,7 +30,8 @@ class wb_mas_read_seq extends uvm_sequence#(wb_master_sequence_item);
   `uvm_object_utils(wb_mas_read_seq)
   
   rand bit [31:0]addr_rt;
-  
+  rand bit sel_test;
+  constraint addr_crt{addr_rt inside {32'h4,32'h8,32'h40,32'h48,32'h4c,32'h50,32'h58,32'h5c,32'h60,32'h68,32'h6c,32'h70,32'h78,32'h7c};}
   
   function new(string name="wb_mas_read_seq");
     super.new(name);
@@ -42,9 +43,14 @@ class wb_mas_read_seq extends uvm_sequence#(wb_master_sequence_item);
           begin
         req=wb_master_sequence_item::type_id::create("req");
           wait_for_grant();
-           
-            req.randomize() with {req.WE_O==1'b0;req.SEL_O==15;req.CYC_O==1'b1;req.ADR_O==temp;};
-            
+            if(sel_test == 1'b1)
+              begin
+              req.randomize() with {req.WE_O==1'b0;req.SEL_O==15;req.CYC_O==1'b1;req.ADR_O==temp;};
+              end
+            else if(sel_test == 1'b0)
+              begin
+                req.randomize() with {req.WE_O==1'b0;req.SEL_O==15;req.CYC_O==1'b1;req.ADR_O==addr_rt;};
+              end
           send_request(req);
           wait_for_item_done();
           end

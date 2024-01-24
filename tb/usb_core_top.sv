@@ -1,10 +1,10 @@
 `timescale 1ns/1ns
-`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB/USB_Verif/tb/vip/wishbone/wb_interface.sv"
-`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB/USB_Verif/tb/vip/USB_VIP/usb_interface.sv"
-`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB/USB_Verif/tb/ssram_interface.sv"
+`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB2_0/USB_Verif/tb/vip/wishbone/wb_interface.sv"
+`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB2_0/USB_Verif/tb/vip/USB_VIP/usb_interface.sv"
+`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB2_0/USB_Verif/tb/ssram_interface.sv"
  //`include "utmi_design.v"
 import uvm_pkg::*;
-`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB/USB_Verif/tb/usb_core_package.sv"
+`include "/Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB2_0/USB_Verif/tb/usb_core_package.sv"
 import usb_core_package::*;
 
 //`include "uvm_macros.svh" 

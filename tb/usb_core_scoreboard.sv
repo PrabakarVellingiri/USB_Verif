@@ -1,14 +1,20 @@
 class usb_core_scoreboard extends uvm_scoreboard;
   `uvm_component_utils(usb_core_scoreboard)
+  
   virtual wb_interface vif;
+  
   uvm_analysis_imp #(wb_master_sequence_item,usb_core_scoreboard) scb_get_port;
+  
   wb_master_sequence_item storage_qu[$];
+ 
   bit [31:0] sc_mem[33000 : 0];
+  
   bit flag;
+  
   function new(string name = "usb_core_scoreboard", uvm_component parent);
     super.new(name,parent);
   endfunction
- 
+
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     scb_get_port=new("scb_get_port",this);
@@ -18,10 +24,11 @@ class usb_core_scoreboard extends uvm_scoreboard;
       end
     uvm_config_db#(bit)::get(this,"","flag",flag);
   endfunction
- 
+
   virtual function write(wb_master_sequence_item trans);
     storage_qu.push_back(trans);
   endfunction
+  
   virtual task run_phase(uvm_phase phase);
     begin
       forever
@@ -68,6 +75,5 @@ class usb_core_scoreboard extends uvm_scoreboard;
         end
     end
   endtask
+  
 endclass
-has context menu
-Compose

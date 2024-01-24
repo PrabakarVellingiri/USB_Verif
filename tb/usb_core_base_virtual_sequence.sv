@@ -30,9 +30,12 @@ class v_reg_reset_read_sqnce extends usb_core_base_virtual_sequence;
   
   
   task body();
+    repeat(10)
     begin
-      wb_rd_sqnce.start(p_sequencer.wb_sqncr);
+      //wb_rd_sqnce.start(p_sequencer.wb_sqncr);
       //in driver we can fetch the read values during reset and in scoreboard it can be checked by comparing the read values and defualt register values
+      `uvm_do_on_with(wb_rd_sqnce,p_sequencer.wb_sqncr,{sel_test==1'b0;})
+      #20;
     end
   endtask
   
@@ -47,14 +50,14 @@ class v_reg_write_read_sqnce extends usb_core_base_virtual_sequence;
   endfunction
   
   task body();
-    repeat(5)
+    repeat(10)
     begin   
       /*wb_wr_sqnce.start(p_sequencer.wb_sqncr);
       #50
       wb_rd_sqnce.start(p_sequencer.wb_sqncr);*/
       `uvm_do_on(wb_wr_sqnce,p_sequencer.wb_sqncr)
       #40;
-      `uvm_do_on(wb_rd_sqnce,p_sequencer.wb_sqncr)
+      `uvm_do_on_with(wb_rd_sqnce,p_sequencer.wb_sqncr,{sel_test == 1'b1;})
       #20;
     end
   endtask

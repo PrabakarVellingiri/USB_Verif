@@ -20,7 +20,7 @@
 
 
 setenv UVM_HOME /tools/questa10_6c/questasim/verilog_src/questa_uvm_pkg-1.2/src
-setenv PROJECT_ROOT /Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB/USB_Verif
+setenv PROJECT_ROOT /Projects/DV_Trainees_Batch2023/keerthana.madhusoodan/my_directory/protocols/USB2_0/USB_Verif
 
 
 set func_cov = 0
